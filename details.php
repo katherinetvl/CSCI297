@@ -4,6 +4,8 @@
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
     // cookie lasts 3 months
     
+    $visitArr = array();
+    array_push($visitArr,$cookie_value);
     // header('Location: index.php');
 ?>
 <?php
@@ -31,7 +33,8 @@ fclose($callListResouce);
 </head>
 <body> 
 
-<?php
+<!-- <?php
+/*
 if(!isset($_COOKIE[$cookie_name]))
     {
         echo "Whoops. The cookie '" . $cookie_name . "' is not set.";
@@ -42,13 +45,13 @@ else
     echo "Value is: " . $_COOKIE[$cookie_name] . "<br>";
     var_dump($_COOKIE);
 }
-?>
+*/
+?> -->
+
 <h1>Company Details</h1>
 <?php
 
 $visitString = "";
-$visitArr = array();
-array_push($visitArr,$cookie_value);
 
     if(isset($_GET["company"]))
     {
@@ -74,7 +77,7 @@ array_push($visitArr,$cookie_value);
             }
 
             // Show array visitArr 
-            var_dump($visitArr); 
+            // var_dump($visitArr); 
             
             // Save value to cookie 
             $cookie_value = implode($visitArr);
