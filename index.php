@@ -34,27 +34,29 @@ fclose($callListResouce);
 <ul>
 <?php
 
-$trackingOnIndex[] = null;
+var_dump($visitedArr);
 
-    foreach($visitedArr as $item)
+    foreach($visitedArr as $visitedItem)
     {
-        $compareNum = $item[1];
-        // echo "Trying to find number in my array: " . $compareNum . "<br>";
-        array_push($trackingOnIndex, $compareNum);
+        foreach($companies as $key => $value)
+        {
+            $valueVisited = trim($value[1]);
+            if($valueVisited == $visitedItem[1])
+            {
+                echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "- visited" . "</a></li>";
+            }
+            else
+            {
+                echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a></li>";
+            }
+        } 
     }
 
     /*
-    foreach($trackingOnIndex as $itemTracked)
-    {
-        $visitedHistory = $itemTracked;
-        echo "Item Tracked should be number: " . $visitedHistory . "<br>";
-    } */
-
     foreach($companies as $key => $value)
     {
         $valueVisited = trim($value[1]);
-        // if($valueVisited == $compareNum)
-        if(in_array($valueVisited, $trackingOnIndex))
+        if(in_array($valueVisited, $visitedArr))
         {
             echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "- visited" . "</a></li>";
         }
@@ -63,15 +65,8 @@ $trackingOnIndex[] = null;
             echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a></li>";
         }
     } 
-
-    /* foreach($companies as $key => $value)
-    {
-        echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a></li>";
-        // echo "Key: " . $key . "<br>";
-        // echo "Value at 0: " . $value[0] . "<br>";
-        // echo "Value at 1: " . $value[1] . "<br>";
-    } 
     */
+
 ?>
 </ul>
     </body>
