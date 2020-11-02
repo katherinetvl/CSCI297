@@ -1,10 +1,10 @@
 <?php
     $cookieVisited = $_COOKIE['visited'];
-    echo "Cookie named " . $cookieVisited . " is set! <br>";
+    //echo "Cookie named " . $cookieVisited . " is set! <br>";
     // var_dump($cookieVisited); 
     $decodeCookieString = base64_decode($cookieVisited);
     $visitedArr[] = explode(",", $decodeCookieString);
-    var_dump($visitedArr);
+    // var_dump($visitedArr);
 ?>
 <?php
 $callListResouce = fopen("callList.csv", "r");
@@ -34,18 +34,27 @@ fclose($callListResouce);
 <ul>
 <?php
 
-    /*
+$trackingOnIndex[] = null;
+
     foreach($visitedArr as $item)
     {
         $compareNum = $item[1];
-        echo "Trying to find number in my array: " . $compareNum . "<br>";
+        // echo "Trying to find number in my array: " . $compareNum . "<br>";
+        array_push($trackingOnIndex, $compareNum);
+    }
+
+    /*
+    foreach($trackingOnIndex as $itemTracked)
+    {
+        $visitedHistory = $itemTracked;
+        echo "Item Tracked should be number: " . $visitedHistory . "<br>";
     } */
 
     foreach($companies as $key => $value)
     {
         $valueVisited = trim($value[1]);
-        // if(in_array($valueVisited, $visitedArr))
-        if($valueVisited == $compareNum)
+        // if($valueVisited == $compareNum)
+        if(in_array($valueVisited, $trackingOnIndex))
         {
             echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "- visited" . "</a></li>";
         }
