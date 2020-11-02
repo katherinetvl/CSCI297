@@ -1,12 +1,22 @@
 <?php 
     $cookie_name = "visited";
-    $cookie_value = "Initital";    
+    $cookie_value = "Initital";
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
     // cookie lasts 3 months
     
-    $visitArr = array();
-    array_push($visitArr,$cookie_value);
-    // header('Location: index.php');
+    if(isset($_COOKIE[$cookie_name]))
+    {
+        $cookieVisited = $_COOKIE['visited'];
+
+        $cookieSearch = strpos($cookie_value, $cookieVisited);
+
+        if($cookieSearch === false)
+        {
+            // Save value to cookie 
+            $cookie_value .= $cookieVisited;
+        }
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
+    }
 ?>
 <?php
 $callListResouce = fopen("callList.csv", "r");
@@ -33,25 +43,10 @@ fclose($callListResouce);
 </head>
 <body> 
 
-<!-- <?php
-/*
-if(!isset($_COOKIE[$cookie_name]))
-    {
-        echo "Whoops. The cookie '" . $cookie_name . "' is not set.";
-    }
-else
-{
-    echo "Cookie named " . $cookie_name . " is set! <br>";
-    echo "Value is: " . $_COOKIE[$cookie_name] . "<br>";
-    var_dump($_COOKIE);
-}
-*/
-?> -->
-
 <h1>Company Details</h1>
 <?php
 
-$visitString = "";
+// $visitString = ""; // this kept re-initializing my string to empty
 
     if(isset($_GET["company"]))
     {
@@ -70,17 +65,15 @@ $visitString = "";
 
             $visitString = base64_encode($pNumberAndComma);
             // echo "My visitString: " . $visitString . "<br>";
-            // Add string to visited array
-            if (!in_array($visitString,$visitArr))
-            {
-                array_push($visitArr, $visitString);
-            }
+            // Add string to cookie string if not already present
+            $stringSearch = strpos($cookie_value, $visitString);
 
-            // Show array visitArr 
-            // var_dump($visitArr); 
-            
-            // Save value to cookie 
-            $cookie_value = implode($visitArr);
+            if($stringSearch === false)
+            {
+                // Save value to cookie 
+                $cookie_value .= $visitString;
+                // echo "Tried concatenation: " . $cookie_value . "<br>";
+            }
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
         }
         else
