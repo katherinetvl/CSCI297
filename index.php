@@ -34,8 +34,9 @@ fclose($callListResouce);
 <ul>
 <?php
 
-var_dump($visitedArr);
+// var_dump($visitedArr);
 
+/*
     foreach($visitedArr as $visitedItem)
     {
         foreach($companies as $key => $value)
@@ -51,12 +52,14 @@ var_dump($visitedArr);
             }
         } 
     }
+*/
 
-    /*
+foreach($visitedArr as $item)
+{
     foreach($companies as $key => $value)
     {
         $valueVisited = trim($value[1]);
-        if(in_array($valueVisited, $visitedArr))
+        if(in_array($valueVisited, $item))
         {
             echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "- visited" . "</a></li>";
         }
@@ -65,7 +68,11 @@ var_dump($visitedArr);
             echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a></li>";
         }
     } 
-    */
+
+}
+
+
+
 
 ?>
 </ul>
