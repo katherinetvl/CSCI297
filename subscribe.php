@@ -1,4 +1,4 @@
-<!-- main file for subscribe form -->
+<!-- Subscribe page -->
 <!DOCTYPE html> 
 <html>
 <head>
@@ -49,8 +49,18 @@
                 // Append to file
                 appendLine("subscriberlist.csv", implode(",", $fileOutput));
 
-                // Next: Send user an email 
+                // Send user an email 
+                $to = $userEmail;
+                $subject = "Pending subscription";
+                $message = 'Please click the following link to confirm your subscription' . "\r\n" .
+                'https://1816c92370be.ngrok.io/confirm.php?email=' . urlencode($userEmail) . '&confirmation='. $generatedCode . "\r\n";
 
+                $message = wordwrap($message, 70);
+                $headers =  "From: unwelcometeam@gmail.com" . "\r\n" . 
+                            "Reply-To: unwelcometeam@gmail.com" . "\r\n" . 
+                            "X-Mailer: PHP/" . phpversion(); 
+
+                mail($to, $subject, $message, $headers);
             }
             else
             {
