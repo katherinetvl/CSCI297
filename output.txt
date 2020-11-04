@@ -57,3 +57,11 @@ array(4) {
 		[0]=> string(22) "katherinetvl@gmail.com" 
 		[1]=> string(20) "82dddfd63b16dce77a7d" 
 		[2]=> string(6) "false " } }
+
+
+lek4@winthrop.edu
+546da1008b149df90468
+katherinetvl@gmail.com 73ac6eabf5fb8e7e69cf false
+katherinetvl@gmail.com 82dddfd63b16dce77a7d false
+katherinetvl@gmail.com ca997607613570224574 false
+lek4@winthrop.edu 546da1008b149df90468 false

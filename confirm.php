@@ -32,13 +32,12 @@ require_once('manipfiles.php');
 
     // Read Lines from file 
     $listUsers = readLines("subscriberlist.csv");
-    var_dump($listUsers);
+    // var_dump($listUsers);
 
-    foreach($listUsers as $singleLine)
+    foreach($listUsers as $singleInfo)
     {
-        $individualUser[] = explode(",", $singleLine);
-        echo "individualUser should be array of each line in file: <br>";
-        var_dump($individualUser);
+        // $individualUser[] = explode(",", $singleLine);
+        echo "<li> $singleInfo[0] $singleInfo[1] $singleInfo[2] </li>";
     }
 
     /*

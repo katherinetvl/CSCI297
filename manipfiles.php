@@ -13,7 +13,8 @@ function readLines($filename)
 
     while($line = fgets($fileResource))
     {
-        $contents[] = $line;
+        // $contents[] = $line;
+        $contents[] = explode(",", $line);
     }
 
     fclose($fileResource);
