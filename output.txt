@@ -1,0 +1,59 @@
+katherinetvl@gmail.com
+82dddfd63b16dce77a7d
+
+array(4) { 	[0]=> string(50) "katherinetvl@gmail.com,73ac6eabf5fb8e7e69cf,false " 
+		[1]=> string(50) "katherinetvl@gmail.com,4816670295c87203d849,false " 
+		[2]=> string(50) "katherinetvl@gmail.com,7dd6d03e6f9d24643851,false " 
+		[3]=> string(50) "katherinetvl@gmail.com,82dddfd63b16dce77a7d,false " } 
+
+
+individualUser should be array of each line in file:
+array(1) { 
+		[0]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "73ac6eabf5fb8e7e69cf" 
+		[2]=> string(6) "false " } } 
+
+
+individualUser should be array of each line in file:
+array(2) { 
+		[0]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "73ac6eabf5fb8e7e69cf" 		
+		[2]=> string(6) "false " } 
+
+		[1]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 		
+		[1]=> string(20) "4816670295c87203d849" 
+		[2]=> string(6) "false " } } 
+
+individualUser should be array of each line in file:
+array(3) { 
+		[0]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "73ac6eabf5fb8e7e69cf" 
+		[2]=> string(6) "false " } [1]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "4816670295c87203d849" 
+		[2]=> string(6) "false " } 
+		[2]=> array(3) { [0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "7dd6d03e6f9d24643851" [2]=> string(6) "false " } } 
+
+individualUser should be array of each line in file:
+array(4) { 
+		[0]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "73ac6eabf5fb8e7e69cf" 
+		[2]=> string(6) "false " } 
+		[1]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 	
+		[1]=> string(20) "4816670295c87203d849" 
+		[2]=> string(6) "false " } 
+		[2]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "7dd6d03e6f9d24643851" 
+		[2]=> string(6) "false " } 
+		[3]=> array(3) { 
+		[0]=> string(22) "katherinetvl@gmail.com" 
+		[1]=> string(20) "82dddfd63b16dce77a7d" 
+		[2]=> string(6) "false " } }
