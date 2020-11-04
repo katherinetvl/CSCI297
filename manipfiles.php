@@ -22,6 +22,27 @@ function readLines($filename)
     return $contents;
 }
 
+function readFullLines($filename)
+{
+    $fileResource = fopen($filename, 'r');
+
+    if(!is_resource($fileResource))
+    {
+        exit("File could not be opened for reading.");
+    }
+
+    $contents = array();
+
+    while($line = fgets($fileResource))
+    {
+        $contents[] = $line;
+    }
+
+    fclose($fileResource);
+
+    return $contents;
+}
+
 function appendLine($filename, $line)
 {
     $fileResource = fopen($filename, 'a');
@@ -40,7 +61,7 @@ function appendLine($filename, $line)
 }
 
 function deleteLine($filename, $lineNumber){
-    $contents = readLines($filename);
+    $contents = readFullLines($filename);
 
     unset($contents[$lineNumber]);
 

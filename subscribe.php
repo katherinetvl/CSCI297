@@ -6,13 +6,14 @@
 </head>     
 <body>
         <h1> Welcome to Katherine's Website </h1> 
+        
         <?php 
-
         require_once('manipfiles.php');
 
             if($_SERVER['REQUEST_METHOD'] == 'GET')
             {
                 ?>
+                <p> Please enter your email to subscribe! </p> 
                 <!-- direct output within conditional -->
                 <form method = "POST" action = "subscribe.php">
                     <label> Email: <input type = "text" name = "subscriberEmail"> </input></label>
@@ -47,28 +48,30 @@
                 $fileOutput[] = $setOrNot;
 
                 // Append to file
-                appendLine("subscriberlist.csv", implode(",", $fileOutput));
+                $fileListUsers = "subscriberlist.csv";
+                appendLine($fileListUsers, implode(",", $fileOutput));
 
                 // Send user an email 
                 $to = $userEmail;
                 $subject = "Pending subscription";
                 $message = 'Please click the following link to confirm your subscription' . "\r\n" .
-                'https://1816c92370be.ngrok.io/confirm.php?email=' . urlencode($userEmail) . '&confirmation='. $generatedCode . "\r\n";
-
+                'https://3570555cb47d.ngrok.io/confirm.php?email=' . urlencode($userEmail) . '&confirmation='. $generatedCode . "\r\n";
+                
                 $message = wordwrap($message, 70);
                 $headers =  "From: unwelcometeam@gmail.com" . "\r\n" . 
                             "Reply-To: unwelcometeam@gmail.com" . "\r\n" . 
                             "X-Mailer: PHP/" . phpversion(); 
 
                 mail($to, $subject, $message, $headers);
+
+                $returnToForm = "Go Back";
+                // Return to form 
+                echo "<a href='subscribe.php'>" . $returnToForm .  "</a>";
             }
             else
             {
                 echo "Error. Please fill out the form to access this submission page.";
             }
             ?>
-
-    <!-- Return to form -->
-    <a href=".\"> Go back </a>
 </body>
 </html>

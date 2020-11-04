@@ -11,41 +11,46 @@
 <?php 
 
 require_once('manipfiles.php');
+$fileOfUsers = "subscriberlist.csv";
 
     // Obtain email and decode 
     $urlLink = ($_SERVER['REQUEST_URI']);
     $urlLink = urldecode($urlLink); 
 
     $urlArray = explode("=", $urlLink);
-    // var_dump($urlArray);
 
     // Obtain email address 
     $emailAddress = $urlArray["1"];
     $pattern = "&confirmation";
     $replacement = "";
     $emailAddress = str_replace($pattern, $replacement, $emailAddress);
-    echo $emailAddress . "<br>";
+    // echo $emailAddress . "<br>";
 
     // Obtain confirmation code 
     $confirmationCode = $urlArray["2"];
-    echo $confirmationCode . "<br>"; 
+    // echo $confirmationCode . "<br>"; 
 
     // Read Lines from file 
-    $listUsers = readLines("subscriberlist.csv");
-    // var_dump($listUsers);
+    $listUsers = readLines($fileOfUsers);
+    $success = false;
 
+    $lineNum = -1; 
     foreach($listUsers as $singleInfo)
     {
-        // $individualUser[] = explode(",", $singleLine);
-        echo "<li> $singleInfo[0] $singleInfo[1] $singleInfo[2] </li>";
-    }
+        $lineNum++;
+        // echo "<li> $singleInfo[0] $singleInfo[1] $singleInfo[2] </li>";
+        if($emailAddress == $singleInfo[0] && $confirmationCode == $singleInfo[1])
+        {
+            // Delete line with email/random code 
+            deleteLine($fileOfUsers, $lineNum);
 
-    /*
-    if(// in_array )
+            $success = true;
+            break;
+        }
+    } 
+
+    if($success)
     {
-        // Delete line with email/random code 
-
-
         // Append new line 
         $isSet = "true";
 
@@ -58,15 +63,14 @@ require_once('manipfiles.php');
         $fileWrite[] = $confirmationCode;
         $fileWrite[] = $isSet;
 
-        appendLine("subscriberlist.csv", implode(",", $fileOutput));
+        appendLine($fileOfUsers, implode(",", $fileWrite));
 
         echo "Thank you for subscribing! <br>";
     }
     else
     {
-        echo "Sorry, your email could not be subscribed. Please enter it into the subscribing from again. <br>";
+        echo "Sorry, your email could not be confirmed. Please enter it into the subscribing from again. <br>";
     }
-    */
 ?>
 </body>
 </html>
