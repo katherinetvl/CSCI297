@@ -6,15 +6,15 @@
     
     if(isset($_COOKIE[$cookie_name]))
     {
-        $cookieValue = str_replace('Initial', '', $cookieValue);
         $cookieVisited = $_COOKIE['visited'];
 
         $cookieSearch = strpos($cookie_value, $cookieVisited);
 
         if($cookieSearch === false)
         {
-            // Save value to cookie 
+            // Save value to cookie
             $cookie_value .= $cookieVisited;
+            $cookie_value = str_replace('Initial', '', $cookie_value);
         }
         setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
     }
@@ -51,15 +51,16 @@ fclose($callListResouce);
     {
         if(isset($companies[$_GET["company"]]))
         {
-            // Get phone number 
-            $pNumber = trim($companies[$_GET["company"]][1]);
+            // Get query string  
+            $queryString = [$_SERVER['QUERY_STRING']][0];
+            $queryString = str_replace("company=", "", $queryString);
+            var_dump($queryString);
 
-            // Combine number and comma 
-            $pNumberAndComma = "," . $pNumber;
-            // echo "My number with comma: " . $pNumberAndComma . "<br>";
+            $queryComma = "," . $queryString;
+            echo "Query with comma: " . $queryComma . "<br>";
 
-            $visitString = base64_encode($pNumberAndComma);
-            // echo "My visitString: " . $visitString . "<br>";
+            $visitString = base64_encode($queryComma);
+            echo "My visitString: " . $visitString . "<br>";
 
             // Add string to cookie string if not already present
             $stringSearch = strpos($cookie_value, $visitString);
@@ -70,7 +71,7 @@ fclose($callListResouce);
             }
             // Save value to cookie 
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
-            
+
             // Render the company info
             echo "<h2>" . $companies[$_GET["company"]][0] . "</h2>";
             echo "<p>Company Phone: " . $companies[$_GET["company"]][1] . "</p>";
