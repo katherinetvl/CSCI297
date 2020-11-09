@@ -1,20 +1,22 @@
 <?php 
     $cookie_name = "visited";
-    $cookie_value = "Initial";
+    $cookie_value = "Cookie";
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
     // cookie lasts 3 months
     
     if(isset($_COOKIE[$cookie_name]))
     {
         $cookieVisited = $_COOKIE['visited'];
+        var_dump($cookieVisited);
+        echo "<br> Above is what I have been concatenating. <br>";
 
         $cookieSearch = strpos($cookie_value, $cookieVisited);
 
         if($cookieSearch === false)
         {
             // Save value to cookie
+            // $cookie_value = str_replace("Cookie", "", $cookie_value);
             $cookie_value .= $cookieVisited;
-            $cookie_value = str_replace('Initial', '', $cookie_value);
         }
         setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
     }
@@ -54,23 +56,26 @@ fclose($callListResouce);
             // Get query string  
             $queryString = [$_SERVER['QUERY_STRING']][0];
             $queryString = str_replace("company=", "", $queryString);
-            var_dump($queryString);
-
-            $queryComma = "," . $queryString;
-            echo "Query with comma: " . $queryComma . "<br>";
-
-            $visitString = base64_encode($queryComma);
-            echo "My visitString: " . $visitString . "<br>";
+            echo "queryString: " . $queryString . "<br>";
+            echo "<br>";
+            
+            // Encode comma with value for adding to cookie
+            $queryToken = "A" . $queryString;
 
             // Add string to cookie string if not already present
-            $stringSearch = strpos($cookie_value, $visitString);
+            $stringSearch = strpos($cookie_value, $queryToken);
 
             if($stringSearch === false)
             { 
-                $cookie_value .= $visitString;
+                $cookie_value .= $queryToken; 
             }
+            $cookie_value = str_replace("Cookie", "", $cookie_value);
+
             // Save value to cookie 
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
+            echo "cookie_value at this point is: <br>";
+            var_dump($cookie_value);
+            echo "<br>";
 
             // Render the company info
             echo "<h2>" . $companies[$_GET["company"]][0] . "</h2>";
