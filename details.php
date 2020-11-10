@@ -49,21 +49,19 @@ fclose($callListResouce);
             
             // Encode comma with value for adding to cookie
             $queryToken = base64_encode(",");
-            $concealComma = $queryToken . $queryString;
+            $concealedComma = $queryToken . $queryString;
 
             // Add string to cookie string
-            $cookie_value .= $concealComma; 
+            $cookie_value .= $concealedComma;
 
             // Remove the initialized value of cookie 
             $cookie_value = str_replace("Cookie", "", $cookie_value);
 
-            // Stop repeat query values 
+            // Have no repeat query values 
             $cookie_value = implode($queryToken, array_unique(explode($queryToken, $cookie_value)));
 
-            // Save value to cookie 
+            // Save new value to cookie 
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
-            echo "cookie_value now: ";
-            echo $cookie_value . "<br>";
 
             // Render the company info
             echo "<h2>" . $companies[$_GET["company"]][0] . "</h2>";
