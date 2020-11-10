@@ -1,12 +1,14 @@
 <?php
-if(isset($_COOKIE[$cookie_name]))
+if(isset($_COOKIE['visited']))
 {
     $cookieVisited = $_COOKIE['visited'];
     var_dump($cookieVisited); 
     echo "<br> Above is cookieVisited <br>";
     echo "<br>";
 
-    $visitedArr[] = explode("A", $cookieVisited);
+    $useComma = base64_encode(",");
+
+    $visitedArr[] = explode($useComma, $cookieVisited);
     var_dump($visitedArr);
     echo "<br> Above is visited array: <br>";
 }
