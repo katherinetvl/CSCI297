@@ -15,7 +15,6 @@
         if($cookieSearch === false)
         {
             // Save value to cookie
-            // $cookie_value = str_replace("Cookie", "", $cookie_value);
             $cookie_value .= $cookieVisited;
         }
         setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
@@ -60,14 +59,15 @@ fclose($callListResouce);
             echo "<br>";
             
             // Encode comma with value for adding to cookie
-            $queryToken = "A" . $queryString;
+            $queryToken = base64_encode(",");
+            $concealComma = $queryToken . $queryString;
 
             // Add string to cookie string if not already present
-            $stringSearch = strpos($cookie_value, $queryToken);
+            $stringSearch = strpos($cookie_value, $concealComma);
 
             if($stringSearch === false)
             { 
-                $cookie_value .= $queryToken; 
+                $cookie_value .= $concealComma; 
             }
             $cookie_value = str_replace("Cookie", "", $cookie_value);
 
