@@ -10,7 +10,12 @@ if(isset($_COOKIE['visited']))
 
     $visitedArr[] = explode($useComma, $cookieVisited);
     var_dump($visitedArr);
-    echo "<br> Above is visited array: <br>";
+    echo "<br> Above is visited array <br>";
+    echo "<br";
+    array_shift($visitedArr[0]);
+    echo "<br> Above is after shift <br>";
+    echo "<br";
+    print_r($visitedArr);
 }
 else
 {
