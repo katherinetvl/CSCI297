@@ -1,0 +1,71 @@
+<?php 
+$visitString = null;
+$visitArr = (array) null;
+$cookieString = null;
+
+    if(isset($_GET["company"]))
+    {
+        if(isset($companies[$_GET["company"]]))
+        {
+        //implode company info into key/value for cookie
+        $coName = $companies[$_GET["company"]][0];
+        $coNumber = $companies[$_GET["company"]][1];
+        $visitString = base64_encode($coName. "," . $coNumber);
+        array_push($visitArr, $visitString);
+        $cookieString = implode($visitArr);
+        }
+    }
+    else
+    {
+        $cookieString = null; 
+    }
+
+    setcookie('visited', $cookieString, time() + (86400 * 90), "/");
+    // cookie lasts 3 months
+    header('Location: .\index.php');
+?>
+
+
+
+            // Implode takes company array, turns into string
+            // $position = implode($companies[$_GET["company"]], ",");
+            //echo "This is position variable: " . $position . "<br>";
+^
+|
+details.php
+
+
+index.php:
+
+<?php 
+$visitArr = (array) null; 
+
+if(isset($_COOKIE['visited']))
+{
+    // cookie does exist
+    // explode 
+    $decodeCookieString = base64_decode($cookieString);
+    $visitArr[] = explode(",", $decodeCookieString);
+}
+else
+{
+    // cookie does not exist
+    $visitArr = (array) null;
+}
+?>
+
+    foreach($companies as $key => $value)
+    {
+        if(in_array($key, $visitArr))
+        // cookie indicates page is visited
+        {
+            // echo visited listing  
+            echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "visited" . "</a></li>";
+        }
+        else 
+        // cookie indicates page as usual 
+        {
+            // echo plain listing 
+            echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a></li>";
+        }
+    }
