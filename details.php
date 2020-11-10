@@ -7,16 +7,7 @@
     if(isset($_COOKIE[$cookie_name]))
     {
         $cookieVisited = $_COOKIE['visited'];
-        var_dump($cookieVisited);
-        echo "<br> Above is what I have been concatenating. <br>";
-
-        $cookieSearch = strpos($cookie_value, $cookieVisited);
-
-        if($cookieSearch === false)
-        {
-            // Save value to cookie
-            $cookie_value .= $cookieVisited;
-        }
+        $cookie_value .= $cookieVisited;
         setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
     }
 ?>
@@ -55,27 +46,24 @@ fclose($callListResouce);
             // Get query string  
             $queryString = [$_SERVER['QUERY_STRING']][0];
             $queryString = str_replace("company=", "", $queryString);
-            echo "queryString: " . $queryString . "<br>";
-            echo "<br>";
             
             // Encode comma with value for adding to cookie
             $queryToken = base64_encode(",");
             $concealComma = $queryToken . $queryString;
 
-            // Add string to cookie string if not already present
-            $stringSearch = strpos($cookie_value, $concealComma);
+            // Add string to cookie string
+            $cookie_value .= $concealComma; 
 
-            if($stringSearch === false)
-            { 
-                $cookie_value .= $concealComma; 
-            }
+            // Remove the initialized value of cookie 
             $cookie_value = str_replace("Cookie", "", $cookie_value);
+
+            // Stop repeat query values 
+            $cookie_value = implode($queryToken, array_unique(explode($queryToken, $cookie_value)));
 
             // Save value to cookie 
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
-            echo "cookie_value at this point is: <br>";
-            var_dump($cookie_value);
-            echo "<br>";
+            echo "cookie_value now: ";
+            echo $cookie_value . "<br>";
 
             // Render the company info
             echo "<h2>" . $companies[$_GET["company"]][0] . "</h2>";
