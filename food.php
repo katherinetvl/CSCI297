@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(isset($_SESSION['customerName']))
+{
+    echo "<p>" . "Hello, " . $_SESSION['customerName'] . "</p>";
+}
 ?>
 <?php
 require_once('filefunctions.php');
@@ -10,29 +15,38 @@ $foodItems = readLines($fileName);
 <!DOCTYPE html>
 <html>
 <head>
-    <title> The K Restaurant - Food Menu </title>
+    <title> Tailored Restaurant - Food </title>
 </head>
     <body> 
-    <h1>Food Menu</h1>
-    <?php 
-    if(isset($_SESSION['customerName']))
-    {
-        echo "<h2>" . $_SESSION['customerName'] . "</h2>";
-    }
-    ?>
+    <h1> Your Focused Food Menu: </h1>
+
     <ul>
     <?php
-    foreach($foodItems as $key => $value)
-    {
-        if(!$value[0] == $_SESSION["xFood"])
+        print_r($_SESSION['xFood']);
+        echo "<br>";
+
+        if($_SESSION['xFood'] != null)
         {
-            echo "<li> . $value[0] . </li>";
+            foreach($foodItems as $key => $value)
+            {
+                if(!in_array($value[0], $_SESSION['xFood']))
+                {
+                    echo "<li> $value[1] - $value[2] </li>";
+                }
+            }
         }
-    } 
+        else
+        {
+            foreach($foodItems as $key => $value)
+            {
+                echo "<li>  $value[1] - $value[2] </li>";
+            }
+        }
     ?>
     </ul>
 
     <!-- Continue to Drinks Menu -->
-    <p> Page 2/4 <a href='drink.php'> Next </a></p>
+    <p> Page 2/4 </p>
+    <p><a href='drink.php'> Next </a></p>
     </body>
 </html>
