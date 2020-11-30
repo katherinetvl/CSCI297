@@ -22,9 +22,6 @@ $foodItems = readLines($fileName);
 
     <ul>
     <?php
-        print_r($_SESSION['xFood']);
-        echo "<br>";
-
         if($_SESSION['xFood'] != null)
         {
             foreach($foodItems as $key => $value)

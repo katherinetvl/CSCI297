@@ -8,6 +8,7 @@ $foodToAvoid[] = "None";
 $allowAlcohol = "No";
 
 $_SESSION['customerName'] = $inputName;
+$_SESSION['customerAge'] = 15;
 $_SESSION['xDrink'] = $allowAlcohol;
 $_SESSION['xFood'] = $foodToAvoid;
 ?>
@@ -43,6 +44,7 @@ $_SESSION['xFood'] = $foodToAvoid;
             <label>  Age: <input type = "number" name = "inputAge" min = "15" max = "110"> </input></label></br>
             <p> Please select food types you do not eat, for any reason (allergy, religion, personal preference): </p>
             <label> Food Types: 
+            <br>
                 <select name = "foodTypes[]" size = 2 multiple>
                 <?php
                     foreach($foodType as $foodCategory)
@@ -67,10 +69,15 @@ $_SESSION['xFood'] = $foodToAvoid;
         if(is_numeric($_POST['inputAge']))
         {
             $userAge = $_POST['inputAge'];
+            $_SESSION['customerAge'] = $userAge; 
             if($userAge >= 21)
             {
                 $doAllowAlcohol = "Yes";
                 $_SESSION['xDrink'] = $doAllowAlcohol;
+            }
+            else
+            {
+                $_SESSION['xDrink'] = "No";
             }
         }
 
